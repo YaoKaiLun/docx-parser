@@ -1,0 +1,13 @@
+{
+  "name": "@docx-parser/wmf2png",
+  "version": "0.1.0",
+  "description": "parse wmf to png",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "repository": "git@github.com:YaoKaiLun/docx-parser.git",
+  "author": "kailunyao",
+  "license": "MIT",
+  "dependencies": {
+    "libwmf": "^0.1.1"
+  }
+}

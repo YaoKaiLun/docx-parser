@@ -1,0 +1,14 @@
+{
+  "name": "@docx-parser/docx4js",
+  "version": "0.1.0",
+  "description": "parse docx to javascript object",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "repository": "git@github.com:YaoKaiLun/docx-parser.git",
+  "author": "kailunyao",
+  "license": "MIT",
+  "dependencies": {
+    "jszip": "^2.6.0",
+    "xmldom": "^0.1.19"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "docx-parser",
+  "version": "0.1.0",
+  "description": "parse docx to html",
+  "main": "index.js",
+  "repository": "git@github.com:YaoKaiLun/docx-parser.git",
+  "author": "kailunyao",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "rollup -c ./config/rollup.config.js -w --bundleConfigAsCjs"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/plugin-transform-runtime": "^7.19.6",
+    "@babel/preset-env": "^7.20.2",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "rollup": "^3.12.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-progress": "^1.1.2"
+  },
+  "dependencies": {
+    "@rollup/plugin-json": "^6.0.0"
+  }
+}
