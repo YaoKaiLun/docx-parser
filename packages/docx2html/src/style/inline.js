@@ -30,6 +30,17 @@ Inline.Properties=class Properties extends Style.Properties{
 	u(x){
 		this.style.textDecoration='underline'
 	}
+  strike(x){
+    this.style.textDecoration='line-through'
+  }
+  em(x) {
+    if (x && x.val === 'dot') {
+      this.style.textEmphasis='filled dot'
+      this.style.WebkitTextEmphasis = 'filled dot';
+      this.style.textEmphasisPosition = 'under';
+      this.style.WebkitTextEmphasisPosition = 'under';
+    } 
+  }
 	bdr(x){
 		this.style.border=this._border(x)
 	}

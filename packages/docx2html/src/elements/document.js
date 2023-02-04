@@ -1,6 +1,5 @@
 import Converter from '../base/converter';
 import JSZip from 'jszip';
-import docx4js from "@docx-parser/docx4js"
 
 var createDocument, CSSStyleDeclaration
 
@@ -325,4 +324,4 @@ export default class Document extends Converter{
 
 	global.btoa=window.btoa
 	CSSStyleDeclaration=window.CSSStyleDeclaration
-})(isNode, "jsdom")
+})(isNode, "jsdom/lib/old-api.js")

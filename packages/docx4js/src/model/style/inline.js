@@ -43,6 +43,12 @@ export default class Inline extends Style{
 		u(x){
 			return this.asObject(x)
 		}
+    strike(x){
+			return this.asToggle(x)
+		}
+    em(x){
+			return this.asObject(x)
+		}
 		bdr(x){
 			var border=this.asObject(x)
 			border.sz && (border.sz=border.sz/8);
