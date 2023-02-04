@@ -1,7 +1,7 @@
 import Part from './part'
-import Base from '../document';
+import baseDocument from './baseDocument';
 
-export default class Document extends Base{
+export default class Document extends baseDocument{
 	constructor(){
 		super(...arguments)
 		var rels=this.rels={}

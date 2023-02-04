@@ -1,114 +1,107 @@
-import "./tool"
-import JSZip from 'jszip'
+import Base from './base/document';
+import Factory from './factory'
+import FontTheme from './theme/font'
+import ColorTheme from './theme/color'
+import FormatTheme from './theme/format'
 
-/**
- *  document parser
- *
- *  @example
- *  Document.load(file)
- *  	.then(doc=>doc.parse([visitors]))
- */
-export default class Document{
-	constructor(parts,raw,props){
-		this.parts=parts
-		this.raw=raw
-		this.props=props
-	}
-	getPart(name){
-		return this.parts[name]
-	}
-	getImagePart(name){
-		var part=this.parts[name]
-		var crc32=part._data.crc32
-		var buffer=part[JSZip.support.nodebuffer ? 'asNodeBuffer' : 'asArrayBuffer']()
-		buffer.crc32=part._data.crc32=crc32
-		return buffer
-	}
+import Table from "./model/table"
+import List from "./model/list"
 
-	/**
-	 *  parse docx with visitors created from visitor factories one by one
-	 */
-	parse(visitorFactories){
-
-	}
-
-	/**
-	 * release resources after parse
-	 */
-	release(){
-
-	}
-
-	/**
-	 *  create parser for a word model
-	 */
-	factory(wordXml, docParser, parentParser){
-		if(!this._factory){
-			let a=new this.constructor.Factory
-			this._factory=function(){
-				return a.create(...arguments)
-			}
-		}
-		return this._factory(...arguments)
-	}
-
-	static clone(doc){
-		let {parts,raw,props}=doc
-		return new Document(parts,raw,props)
-	}
-	/**
-	 *  a helper to load document file
-
-	 *  @param inputFile {File} - a html input file, or nodejs file
-	 *  @return {Promise}
-	 */
-
-	static load(inputFile){
-		var DocumentSelf=this
-		return new Promise((resolve, reject)=>{
-			function parse(data, props={}){
-				var raw=new JSZip(data),parts={}
-				raw.filter(function(path,file){
-					parts[path]=file
-				})
-				resolve(new DocumentSelf(parts,raw,props))
-			}
-
-
-			if($.isNode){//node
-				if(typeof inputFile=='string'){//file name
-					require('fs').readFile(inputFile,function(error, data){
-						if(error)
-							reject(error);
-						else if(data){
-							parse(data, {name:inputFile.split(/[\/\\]/).pop().replace(/\.docx$/i,'')})
-						}
-					})
-				}else {
-					parse(inputFile)
-				}
-			}else{//browser
-				if(inputFile instanceof Blob){
-					var reader=new FileReader();
-					reader.onload=function(e){
-						parse(e.target.result, {
-								name:inputFile.name.replace(/\.docx$/i,''),
-								lastModified:inputFile.lastModified,
-								size:inputFile.size
-							})
-					}
-					reader.readAsArrayBuffer(inputFile);
-				}else {
-					parse(inputFile)
-				}
-			}
-
+export default class document extends Base{
+	constructor(){
+		super(...arguments)
+		var rels=this.rels,
+			builtIn='settings,webSettings,theme,styles,stylesWithEffects,fontTable,numbering,footnotes,endnotes'.split(',')
+		$.each(this.partMain.rels,function(id,rel){
+			builtIn.indexOf(rel.type)!=-1 && (rels[rel.type]=rel.target)
 		})
 	}
 
-	static Factory=class {
-		create(wordXml, docParser, parentParser){
+	static clone(doc){
+		let {parts,raw,props,rels,partMain}=doc
+		return new document(parts,raw,props)
+	}
 
+	static get ext(){return 'docx'}
+
+	parse(visitFactories){
+		super.parse(...arguments)
+		this.style=new this.constructor.Style()
+		this.parseContext={
+			section: new ParseContext(),
+			part:new ParseContext(this.partMain),
+			bookmark: new ParseContext(),
+			numbering: new List.Context(this),
+			table: new Table.Context(this),
+			field: (function(ctx){
+				ctx.instruct=function(t){
+					this[this.length-1].instruct(t)
+				}
+				ctx.seperate=function(model){
+					this[this.length-1].seperate(model)
+				}
+				ctx.end=function(endModel, endVisitors){
+					this.pop().end(...arguments)
+				}
+				return ctx
+			})([])
 		}
+		this.content=this.factory(this.partMain.documentElement, this)
+		var roots=this.content.parse($.isArray(visitFactories) ? visitFactories : $.toArray(arguments))
+		this.release()
+		return roots.length==1 ? roots[0] : roots
+	}
+	getRel(id){
+		return this.parseContext.part.current.getRel(id)
+	}
+	getColorTheme(){
+		if(this.colorTheme)
+			return this.colorTheme
+		return this.colorTheme=new ColorTheme(this.getPart('theme').documentElement.$1('clrScheme'), this.getPart('settings').documentElement.$1('clrSchemeMapping'))
+	}
+	getFontTheme(){
+		if(this.fontTheme)
+			return this.fontTheme
+		return this.fontTheme=new FontTheme(this.getPart('theme').documentElement.$1('fontScheme'), this.getPart('settings').documentElement.$1('themeFontLang'))
+	}
+	getFormatTheme(){
+		if(this.formatTheme)
+			return this.formatTheme
+		return this.formatTheme=new FormatTheme(this.getPart('theme').documentElement.$1('fmtScheme'), this)
+	}
+	release(){
+		delete this.parseContext
+
+		super.release(...arguments)
+	}
+
+	static get type(){return "Word"}
+
+	static get Style(){return Style}
+
+	static Factory=Factory
+}
+
+function Style(){
+	var ids={},defaults={}
+	Object.assign(this,{
+		setDefault: function(style){
+			defaults[style.type]=style
+		},
+		getDefault: function(type){
+			return defaults[type]
+		},
+		get: function(id){
+			return ids[id]
+		},
+		set: function(style, id){
+			ids[id||style.id]=style
+		}
+	})
+}
+
+class ParseContext{
+	constructor(current){
+		this.current=current
 	}
 }

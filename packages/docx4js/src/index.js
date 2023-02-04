@@ -1,3 +1,3 @@
-import Document from './openxml/docx/document';
+import Document from './document';
 
 export default Document;

@@ -1,4 +1,4 @@
-import Model from '../model';
+import Model from '.';
 
 var RGB=/([a-fA-F0-9]{2}?){3}?/;
 export default class Style extends Model{

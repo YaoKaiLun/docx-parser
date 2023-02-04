@@ -1,4 +1,4 @@
-import Parser from '../parser';
+import Parser from './base/parser';
 
 export default class model extends Parser{
 	constructor(wXml,wDoc,mParent){

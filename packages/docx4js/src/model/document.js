@@ -1,4 +1,4 @@
-import Model from '../model';
+import Model from '.';
 import Style from './style/inline'
 
 export default class Document extends Model{
