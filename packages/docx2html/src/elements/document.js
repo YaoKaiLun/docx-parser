@@ -1,4 +1,4 @@
-import Converter from './converter';
+import Converter from '../base/converter';
 import JSZip from 'jszip';
 import docx4js from "@docx-parser/docx4js"
 

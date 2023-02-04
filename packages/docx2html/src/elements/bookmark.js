@@ -1,4 +1,4 @@
-import Converter from './converter'
+import Converter from '../base/converter'
 
 export default class Bookmark extends Converter{
 	get tag(){return 'i'}

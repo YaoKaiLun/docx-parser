@@ -1,5 +1,5 @@
-import Converter from './converter'
-import Style from './style/converter'
+import Converter from '../base/converter'
+import Style from '../style/converter'
 
 var AZ=/[A-Z]/g, 
 	r=function(a){return '-'+a.toLowerCase()},

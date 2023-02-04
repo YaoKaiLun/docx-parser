@@ -1,4 +1,4 @@
-import Converter from './converter'
+import Converter from '../base/converter'
 
 export default class A extends Converter{
 	get tag(){return 'a'}

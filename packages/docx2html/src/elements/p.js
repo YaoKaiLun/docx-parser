@@ -1,5 +1,5 @@
-import Converter from './converter'
-import Style from './style/paragraph'
+import Converter from '../base/converter'
+import Style from '../style/paragraph'
 
 export default class Paragraph extends Converter{
 	get tag(){return 'p'}

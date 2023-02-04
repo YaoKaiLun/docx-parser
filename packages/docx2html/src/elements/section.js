@@ -1,5 +1,5 @@
-import Converter from './converter'
-import Style from './style/section'
+import Converter from '../base/converter'
+import Style from '../style/section'
 
 export default class Section extends Converter{
 	get tag(){return 'section'}

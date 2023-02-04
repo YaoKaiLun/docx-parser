@@ -1,5 +1,5 @@
-import Converter from './converter'
-import Style from './style/converter'
+import Converter from '../base/converter'
+import Style from '../style/converter'
 
 export default class Drawing extends Converter{
 	convertStyle(el){

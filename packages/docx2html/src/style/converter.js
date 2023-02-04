@@ -1,4 +1,4 @@
-import Converter from '../converter'
+import Converter from '../base/converter'
 
 var Lines='dotted,dashed,inset,outset,solid'.split()
 var browsers=',-webkit-,-moz-'.split(','), cssID=Converter.asCssID;

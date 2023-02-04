@@ -1,4 +1,4 @@
-import Converter from '../converter'
+import Converter from '../base/converter'
 
 export default class Field extends Converter{
 	constructor(wordModel, parent){

@@ -1,5 +1,5 @@
-import Converter from './converter'
-import Style from './style/inline'
+import Converter from '../base/converter'
+import Style from '../style/inline'
 
 export default class Span extends Converter{
 	get tag(){return 'span'}

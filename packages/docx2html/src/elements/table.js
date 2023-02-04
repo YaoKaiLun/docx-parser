@@ -1,5 +1,5 @@
-import Converter from './converter'
-import Style from './style/table'
+import Converter from '../base/converter'
+import Style from '../style/table'
 
 export default class Table extends Converter{
 	get tag(){return 'table'}

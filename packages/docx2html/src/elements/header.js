@@ -1,4 +1,4 @@
-import Converter from './converter'	
+import Converter from '../base/converter'	
 
 export default class Header extends Converter{
 	get wordType(){return 'header'}

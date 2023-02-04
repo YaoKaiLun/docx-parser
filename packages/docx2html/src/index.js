@@ -1,5 +1,5 @@
 import docx4js from "@docx-parser/docx4js"
-import converters from "./docx/html/factory"
+import factory from "./factory"
 
 /**
  * 
@@ -13,7 +13,7 @@ import converters from "./docx/html/factory"
 export default function docx2html(file, opt){
 	return docx4js.load(file)
 		.then(docx=>{
-			const html = docx.parse(docx4js.createVisitorFactory(converters, opt))
+			const html = docx.parse(docx4js.createVisitorFactory(factory, opt))
 			return Object.create({
 				content: html.content, 
 				toString(){

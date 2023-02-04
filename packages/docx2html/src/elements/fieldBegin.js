@@ -1,4 +1,4 @@
-import Converter from './converter'	
+import Converter from '../base/converter'	
 
 export default class FieldBegin extends Converter{
 	get tag(){return 'span'}
