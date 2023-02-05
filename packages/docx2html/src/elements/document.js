@@ -240,9 +240,10 @@ export default class Document extends Converter{
 
 			},
 			asImageURL(buffer){
-				if(opt && typeof(opt.asImageURL)!='undefined')
-					return opt.asImageURL(buffer)
-				return "image://notsupport"
+        const b64 = Buffer.from(buffer).toString('base64');
+        const mimeType = typeof(buffer)=='string' ? 'svg+xml' : '*';
+        const base64Url = `data:image/${mimeType};base64,${b64}`;
+				return base64Url;
 			},
 			asZip(){
 				throw new Error('not support')
@@ -301,8 +302,10 @@ export default class Document extends Converter{
 			},
 			images:{},
 			asImageURL(arrayBuffer){
-				var url=URL.createObjectURL(new Blob([arrayBuffer],
-					{type:"image/"+(typeof(arrayBuffer)=='string' ? 'svg+xml' : '*')}));
+				var url=URL.createObjectURL(
+          new Blob([arrayBuffer],
+					{type:"image/"+(typeof(arrayBuffer)=='string' ? 'svg+xml' : '*')})
+        );
 				this.images[url]=arrayBuffer
 				return url
 			},
