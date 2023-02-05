@@ -1,4 +1,4 @@
-import xmldom from 'xmldom';
+import xmldom from '@xmldom/xmldom';
 
 var isNode=false
 try {
@@ -6,7 +6,6 @@ try {
 } catch(e) {
 
 }
-
 
 function makeTool(xmlParser, Document, Node, NodeList, scopable){
 	var $={

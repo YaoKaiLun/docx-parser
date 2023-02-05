@@ -59,15 +59,23 @@ export default class Factory {
 	create(wXml, doc, parent, more){
 		var tag=wXml.localName, swap;
 
-		if('document'==tag)
-			return new DocumentModel(wXml,doc, parent)
-		else if('styles'==tag)
-			return new DocumentStylesModel(wXml,doc)
-		else if('abstractNum'==tag)
-			return new NumberingDefinitionStyleModel(wXml,doc)
-		else if('num'==tag)
-			return new ListStyleModel(wXml,doc)
-		else if('style'==tag){
+		if('document'==tag) {
+      return new DocumentModel(wXml,doc, parent)
+    }
+			
+		if('styles'==tag) {
+      return new DocumentStylesModel(wXml,doc)
+    }
+			
+		if('abstractNum'==tag) {
+      return new NumberingDefinitionStyleModel(wXml,doc)
+    }
+			
+		if('num'==tag) {
+      return new ListStyleModel(wXml,doc)
+    }
+			
+		if('style'==tag) {
 			switch(wXml.attr('w:type')){
 			case 'paragraph':
 				return new ParagraphStyleModel(wXml,doc)
@@ -78,11 +86,17 @@ export default class Factory {
 			case 'numbering':
 				return new NumberingStyleModel(wXml,doc)
 			}
-		}else if('docDefaults'==tag)
-			return new DocumentStyleModel(wXml,doc)
-		else if('body'==tag)
-			return new BodyModel(wXml,doc, parent)
-		else if('p'==tag){
+		}
+    
+    if('docDefaults'==tag) {
+      return new DocumentStyleModel(wXml,doc)
+    }
+			
+		if('body'==tag) {
+      return new BodyModel(wXml,doc, parent)
+    }
+			
+		if('p'==tag){
 			var styleId=attr(wXml.$1('>pPr>pStyle'),'w:val'), style=doc.style.get(styleId)
 			if(wXml.$1('>pPr>numPr') || (style && style.getNumId()!=-1))
 				return new ListModel(wXml,doc,parent)
@@ -99,7 +113,9 @@ export default class Factory {
 				return new HeadingModel(wXml,doc, parent,outlineLvl)
 
 			return new ParagraphModel(wXml,doc,parent)
-		}else if('r'==tag){
+		}
+    
+    if('r'==tag){
 			let style=doc.style.get(attr(wXml.$1('>rPr>rStyle'),'w:val'))
 
 			let outlineLvl=-1, tmp
@@ -122,47 +138,65 @@ export default class Factory {
 			}
 
 			return new InlineModel(wXml,doc,parent)
-		}else if('instrText'==tag)
-				return new FieldInstructModel(wXml, doc,parent)
-		else if('t'==tag)
-			return new TextModel(wXml,doc,parent)
-		else if('sym'==tag && wXml.parentNode.localName=='r')
-			return new SymbolModel(wXml,doc,parent)
-		else if('softHyphen'==tag && wXml.parentNode.localName=='r')
+		}
+    
+    if('instrText'==tag) {
+      return new FieldInstructModel(wXml, doc,parent)
+    }
+		
+		if('t'==tag) {
+      return new TextModel(wXml,doc,parent)
+    }
+			
+		if('sym'==tag && wXml.parentNode.localName=='r') {
+      return new SymbolModel(wXml,doc,parent)
+    }
+			
+		if('softHyphen'==tag && wXml.parentNode.localName=='r')
 			return new SoftHyphenModel(wXml,doc,parent)
-		else if('noBreakHyphen'==tag && wXml.parentNode.localName=='r')
+
+		if('noBreakHyphen'==tag && wXml.parentNode.localName=='r')
 			return new NoBreakHyphenModel(wXml,doc,parent)
-		else if('tab'==tag && wXml.parentNode.localName=='r')
+
+		if('tab'==tag && wXml.parentNode.localName=='r')
 			return new TabModel(wXml,doc,parent)
-		else if('fldSimple'==tag)
+
+		if('fldSimple'==tag)
 			return new FieldSimpleModel(wXml,doc,parent)
-		else if('fldChar'==tag){
+
+		if('fldChar'==tag){
 			switch(wXml.attr('w:fldCharType')){
 			case 'begin':
 				return new FieldBeginModel(wXml,doc,parent)
-			break
 			case 'end':
 				return new FieldEndModel(wXml,doc,parent)
-			break
 			case 'separate':
 				return new FieldSeparateModel(wXml,doc,parent)
-			break
 			}
-		}else if('tbl'==tag)
+		}
+    
+    if('tbl'==tag)
 			return new TableModel(wXml,doc,parent)
-		else if('tr'==tag)
+
+		if('tr'==tag)
 			return new RowModel(wXml,doc,parent)
-		else if('tc'==tag)
+
+		if('tc'==tag)
 			return new CellModel(wXml,doc,parent)
-		else if('br'==tag)
+
+		if('br'==tag)
 			return new BrModel(wXml,doc,parent)
-		else if('hyperlink'==tag && 'p'==wXml.parentNode.localName)
+
+		if('hyperlink'==tag && 'p'==wXml.parentNode.localName)
 			return new HyperlinkModel(wXml,doc,parent)
-		else if('AlternateContent'==tag)
+
+		if('AlternateContent'==tag)
 			return new DrawingAnchorModel(wXml,doc,parent)
-		else if('wsp'==tag)
+
+		if('wsp'==tag)
 			return new ShapeModel(wXml,doc,parent)
-		else if('inline'==tag){
+
+		if('inline'==tag){
 			var type=wXml.$1('>graphic>graphicData').attr('uri').split('/').pop()
 			switch(type){
 			case 'picture':
@@ -174,7 +208,9 @@ export default class Factory {
 			default:
 				console.error('inline '+type +' is not suppored yet.')
 			}
-		}else if('sdt'==tag){
+		}
+    
+    if('sdt'==tag){
 			var elBinding=wXml.$1('>sdtPr>dataBinding')
 			if(elBinding){//properties
 				var path=attr(elBinding, 'w:xpath'),
@@ -190,15 +226,21 @@ export default class Factory {
 				if(control)
 					return control
 			}
-		}else if('bookmarkStart'==tag)
+		}
+    
+    if('bookmarkStart'==tag)
 			return new BookmarkStartModel(wXml,doc,parent)
-		else if('bookmarkEnd'==tag)
+
+		if('bookmarkEnd'==tag)
 			return new BookmarkEndModel(wXml,doc,parent)
-		else if('oMath'==tag)
+
+		if('oMath'==tag)
 			return new EquationModel(wXml,doc,parent)
-		else if('object'==tag)
+
+		if('object'==tag)
 			return new OLEModel(wXml,doc,parent)
-		else if('sectPr'==tag)
+
+		if('sectPr'==tag)
 			return new SectionModel(wXml,doc,parent)
 
 		return new Model(wXml,doc,parent)

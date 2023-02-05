@@ -20,6 +20,7 @@ import td from './elements/td';
 import text from './elements/text';
 import textbox from './elements/textbox';
 import tr from './elements/tr';
+import equation from './elements/equation';
 import fieldHyperlink from './field/hyperlink';
 import styleDocument from './style/document';
 import styleInline from './style/inline';
@@ -50,6 +51,7 @@ export default {
 	'text':	text,
 	'textbox': textbox,
 	'row': tr,
+  'equation': equation,
 	
 	'field.hyperlink': fieldHyperlink,
 	

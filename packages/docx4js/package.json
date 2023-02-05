@@ -9,6 +9,6 @@
   "license": "MIT",
   "dependencies": {
     "jszip": "^2.6.0",
-    "xmldom": "^0.1.19"
+    "@xmldom/xmldom": "^0.8.6"
   }
 }
