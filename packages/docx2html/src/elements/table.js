@@ -13,7 +13,9 @@ export default class Table extends Converter {
       html.push('<col style="width:' + (cols[i] * 100 / sum) + '%"/>');
     html.push('</colgroup>');
     el.innerHTML = html.join('');
+    el.border = 'true';
     var style = this.wordModel.getDirectStyle();
+    el.style['border-collapse'] = 'collapse';
     style && style.parse([new this.constructor.Properties(el.style, this)]);
     var tbody = this.doc.createElement('tbody');
     this.content.appendChild(tbody);
