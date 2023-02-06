@@ -24,6 +24,13 @@ export default class Document extends baseDocument{
 
 		return this.parts[name]=new Part(name,this)
 	}
+  getDataPart(name){
+		let part=this.parts[name]
+		let crc32=part._data.crc32
+		let data=part.asUint8Array() //unsafe call, part._data is changed
+		data.crc32=part._data.crc32=crc32 //so keep crc32 on part._data for future
+		return data
+	}
 	parse(){
 		super.parse(...arguments)
 		this.getPart('core-properties').documentElement
@@ -66,9 +73,9 @@ export default class Document extends baseDocument{
 				var Visitor=map[srcModel.type], visitor, t;
 				if(!srcModel.type)
 					;
-				else if(Visitor)
-					visitor=new Visitor(srcModel, targetParent)
-				else if((t=srcModel.type.split('.')).length>1){
+				else if(Visitor) {
+          visitor=new Visitor(srcModel, targetParent)
+        } else if((t=srcModel.type.split('.')).length>1){
 					do{
 						t.pop()
 						if((Visitor=map[t.join('.')])){

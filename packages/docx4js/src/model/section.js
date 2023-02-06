@@ -4,6 +4,11 @@ import Header from './header'
 import Footer from './footer'
 import Style from './style/section'
 
+const elementMap = {
+  header: Header,
+  footer: Footer,
+};
+
 export default class section extends Model{
 	constructor(wXml, wDoc, mParent){
 		super(...arguments)
@@ -34,7 +39,7 @@ export default class section extends Model{
 	_iterateHeaderFooter(visitorFactories,refType){
 		for(var refs=this.wXml.$(refType+'Reference'),i=0,len=refs.length;i<len;i++){
 			var part=this.wDoc.parseContext.part.current=this.wDoc.getRel(refs[i].attr('r:id'))
-			var model=new (require('./'+refType))(part.documentElement, this.wDoc, this, refs[i].attr('w:type'))
+			var model=new elementMap[refType](part.documentElement, this.wDoc, this, refs[i].attr('w:type'))
 			model.parse(visitorFactories)
 			this.wDoc.parseContext.part.current=this.wDoc.partMain
 		}

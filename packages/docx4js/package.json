@@ -8,7 +8,9 @@
   "author": "kailunyao",
   "license": "MIT",
   "dependencies": {
-    "jszip": "^2.6.0",
-    "@xmldom/xmldom": "^0.8.6"
+    "@docx-parser/wmf2png": "^0.1.0",
+    "@xmldom/xmldom": "^0.8.6",
+    "cfb": "^1.2.2",
+    "jszip": "^2.6.0"
   }
 }

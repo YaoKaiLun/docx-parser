@@ -5,8 +5,9 @@ export default class documentProperty extends SDT{
 		super(...arguments)
 		this.key=name.toLowerCase()
 		this.value=wXml.$1('>sdtContent').textContent.trim()
-		if(!this.wDoc.props[this.key])
+		if(!this.wDoc.props[this.key]) {
 			this.wDoc.props[this.key]=this.value
+    }
 	}
 	static get type(){return 'documentProperty'}
 }

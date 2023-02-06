@@ -1,10 +1,12 @@
-import Model from '.';
+import Model from '../model';
 import Style from './style/inline'
 
 export default class Document extends Model{
 	parse(){
-		var visitors=super.parse(...arguments)
-		visitors.forEach((a)=>a.props=this.wDoc.props)
+		var visitors = super.parse(...arguments)
+		visitors.forEach((a)=>{
+      a.props=this.wDoc.props
+    })
 		return visitors
 	}
 	_getValidChildren(){

@@ -1,3 +1,4 @@
+import { OLEParse } from './ole';
 export default class Part {
 	constructor(name,doc){
 		this.name=name
@@ -27,6 +28,7 @@ export default class Part {
 					target:(a.getAttribute('TargetMode')!="External" ? (folder ? (folder+"/") : '') : '')+a.getAttribute('Target')}
 			},this)
 	}
+
 	getRel(id){
 		var rel=this.rels[id]
 		if(rel.targetMode=='External')
@@ -36,6 +38,18 @@ export default class Part {
 			return this.doc.getImagePart(rel.target)
 		default:
 			return this.doc.getPart(rel.target)
+		}
+	}
+
+  getRelOleObject(rid){
+		let rel=this.rels[rid];
+		let type=rel.type
+		let data=this.doc.getDataPart(rel.target)
+		switch(type.split("/").pop()){
+			case 'oleObject':
+				return OLEParse(data)
+			default:
+				return data
 		}
 	}
 

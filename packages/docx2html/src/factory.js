@@ -21,6 +21,7 @@ import text from './elements/text';
 import textbox from './elements/textbox';
 import tr from './elements/tr';
 import equation from './elements/equation';
+import Object from './elements/object';
 import fieldHyperlink from './field/hyperlink';
 import styleDocument from './style/document';
 import styleInline from './style/inline';
@@ -52,6 +53,7 @@ export default {
 	'textbox': textbox,
 	'row': tr,
   'equation': equation,
+  'object': Object,
 	
 	'field.hyperlink': fieldHyperlink,
 	

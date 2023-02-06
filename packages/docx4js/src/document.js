@@ -51,9 +51,19 @@ export default class document extends Base{
 		this.release()
 		return roots.length==1 ? roots[0] : roots
 	}
+
+  getRels() {
+    return this.parseContext.part.current.rels;
+  }
+
 	getRel(id){
 		return this.parseContext.part.current.getRel(id)
 	}
+
+  getRelOleObject = (rid) => {
+		return this.parseContext.part.current.getRelOleObject(rid)
+	}
+
 	getColorTheme(){
 		if(this.colorTheme)
 			return this.colorTheme

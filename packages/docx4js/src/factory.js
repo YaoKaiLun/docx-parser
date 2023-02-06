@@ -29,7 +29,7 @@ import DocumentPropertyModel from './model/chart';
 import BookmarkStartModel from './model/bookmarkStart';
 import BookmarkEndModel from './model/bookmarkEnd';
 import EquationModel from './model/equation';
-import OLEModel from './model/OLE';
+import ObjectModel from './model/object';
 import SectionModel from './model/section';
 
 import ParagraphModel from './model/paragraph';
@@ -131,9 +131,10 @@ export default class Factory {
 
 			if(wXml.childNodes.length==1 || (wXml.childNodes==2 && wXml.firstChild.localName=='rPr')){
 				switch(wXml.lastChild.localName){
+        case 'object':
 				case 'fldChar':
 				case 'instrText':
-					return factory(wXml.lastChild,doc,parent)
+					return this.create(wXml.lastChild,doc,parent)
 				}
 			}
 
@@ -237,8 +238,9 @@ export default class Factory {
 		if('oMath'==tag)
 			return new EquationModel(wXml,doc,parent)
 
-		if('object'==tag)
-			return new OLEModel(wXml,doc,parent)
+		if('object'==tag) {
+			return new ObjectModel(wXml,doc,parent)
+    }
 
 		if('sectPr'==tag)
 			return new SectionModel(wXml,doc,parent)

@@ -10,27 +10,26 @@ import factory from "./factory"
  * }
  * @returns 
  */
-export default function docx2html(file, opt){
-	return docx4js.load(file)
-		.then(docx=>{
-			const html = docx.parse(docx4js.createVisitorFactory(factory, opt))
-			return Object.create({
-				content: html.content, 
-				toString(){
-					return html.toString(...arguments)
-				},
-				asZip(){
-					return html.asZip(...arguments)
-				},
-				download(){
-					return html.download(...arguments)
-				},
-				save(){
-					return html.save(...arguments)
-				},
-				release(){
-					html.release()
-				}
-			})
-		})
+export default async function docx2html(file, opt){
+  const docx = await docx4js.load(file);
+  const html = docx.parse(docx4js.createVisitorFactory(factory, opt))
+
+  return Object.create({
+    content: html.content, 
+    toString(){
+      return html.toString(...arguments)
+    },
+    asZip(){
+      return html.asZip(...arguments)
+    },
+    download(){
+      return html.download(...arguments)
+    },
+    save(){
+      return html.save(...arguments)
+    },
+    release(){
+      html.release()
+    }
+  })
 }

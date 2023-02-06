@@ -13,12 +13,16 @@ export default class Converter{
 			return this.convert(...arguments)
 	}
 	convert(){
-		this.content=this.createElement()
-		if(this.content){
+		this.content = this.createElement()
+
+		if(this.content) {
 			this.parent.content.appendChild(this.content)
-		}else
-			this.content=this.parent && this.parent.content || null
-			
+		} else if (this.parent) {
+      this.content = this.parent.content;
+    } else {
+      this.content = null;
+    }
+
 		this.convertStyle(this.content)
 	}
 	createElement(){
