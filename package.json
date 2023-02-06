@@ -8,7 +8,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "rollup -c ./config/rollup.config.js -w --bundleConfigAsCjs"
+    "dev": "rollup -c ./config/rollup.config.js -w --bundleConfigAsCjs",
+    "lint": "eslint . --ext .js --fix"
   },
   "workspaces": [
     "packages/*"
@@ -23,6 +24,8 @@
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "eslint": "^8.33.0",
+    "eslint-plugin-import": "^2.27.5",
     "rollup": "^3.12.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-progress": "^1.1.2"
