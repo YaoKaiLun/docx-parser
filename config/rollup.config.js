@@ -43,7 +43,7 @@ function configure(pkg) {
       progress(),
     ],
     // 忽略部分 warning 信息
-    onwarn: function (warning) {
+    onwarn(warning) {
       if (warning.code === 'THIS_IS_UNDEFINED' || warning.code === 'CIRCULAR_DEPENDENCY') {
         return;
       }

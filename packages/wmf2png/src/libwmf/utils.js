@@ -7,34 +7,34 @@
  */
 
 exports.escape = function escape(arg) {
-	return '"' + String(arg).trim().replace(/"/g, '\\"') + '"';
+  return '"' + String(arg).trim().replace(/"/g, '\\"') + '"';
 };
 
 exports.unescape = function escape(arg) {
-	return String(arg).trim().replace(/"/g, '');
+  return String(arg).trim().replace(/"/g, '');
 };
 
 exports.argsToArray = function () {
-	var arr = [];
-	for (var i = 0; i <= arguments.length; i++) {
-		if ('undefined' != typeof arguments[i])
-			arr.push(arguments[i]);
-	}
-	return arr;
+  var arr = [];
+  for (var i = 0; i <= arguments.length; i++) {
+    if ('undefined' != typeof arguments[i])
+      arr.push(arguments[i]);
+  }
+  return arr;
 };
 
 exports.isUtil = function (v) {
-	var ty = 'object';
-	switch (Object.prototype.toString.call(v)) {
-	case '[object String]':
-		ty = 'String';
-		break;
-	case '[object Array]':
-		ty = 'Array';
-		break;
-	case '[object Boolean]':
-		ty = 'Boolean';
-		break;
-	}
-	return ty;
+  var ty = 'object';
+  switch (Object.prototype.toString.call(v)) {
+    case '[object String]':
+      ty = 'String';
+      break;
+    case '[object Array]':
+      ty = 'Array';
+      break;
+    case '[object Boolean]':
+      ty = 'Boolean';
+      break;
+  }
+  return ty;
 };

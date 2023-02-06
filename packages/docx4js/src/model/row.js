@@ -1,14 +1,16 @@
 import Model from '../model';
-import TableStyle from './style/table'
+import TableStyle from './style/table';
 
-export default class row extends Model{
-	parse(){
-		this.wDoc.parseContext.table.pushRow(this)
-		super.parse(...arguments)
-		this.wDoc.parseContext.table.popRow(this)
-	}
-	getDirectStyle(pr){
-		return (pr=this.wXml.$1('>trPr')) && new TableStyle.RowProperties(pr,this.wDoc,this)
-	}
-	static get type(){return 'row'}
+export default class row extends Model {
+  parse() {
+    this.wDoc.parseContext.table.pushRow(this);
+    super.parse(...arguments);
+    this.wDoc.parseContext.table.popRow(this);
+  }
+  getDirectStyle(pr) {
+    return (pr = this.wXml.$1('>trPr')) && new TableStyle.RowProperties(pr, this.wDoc, this);
+  }
+  static get type() {
+    return 'row';
+  }
 }

@@ -1,9 +1,9 @@
 import Model from '../model';
 const { wmf2pngBase64Sync } = require('@docx-parser/wmf2png');
 
-export default class Object extends Model{
-  constructor(wXml, wDoc, mParent, location){
-		super(...arguments)
+export default class Object extends Model {
+  constructor(wXml, wDoc, mParent, location) {
+    super(...arguments);
 
     wXml.childNodes.forEach((node) => {
       if (node.tagName === 'OLEObject') {
@@ -16,12 +16,12 @@ export default class Object extends Model{
           if (node.tagName === 'imagedata') {
             this.mediaRId = node.attr('r:id');
           }
-        })
+        });
       }
     });
-	}
+  }
 
-	static get type(){
+  static get type() {
     return 'object';
   }
 

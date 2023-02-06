@@ -35,8 +35,6 @@ export function wmf2pngSync(sourcePath, targetPath) {
 
   try {
     libwmf(sourcePath).toPNGSync(targetPath);
-  } catch (error) {
-    throw error;
   } finally {
     if (isBuffer) {
       fs.rmSync(sourcePath);
@@ -66,7 +64,7 @@ export function wmf2pngBase64(sourcePath) {
       try {
         const bitmap = fs.readFileSync(targetPath);
         const base64 = Buffer.from(bitmap).toString('base64');
-        const pngBase64  = `data:image/png;base64,${base64}`;
+        const pngBase64 = `data:image/png;base64,${base64}`;
         fs.rmSync(targetPath);
         resolve(pngBase64);
       } catch (error) {
@@ -85,14 +83,12 @@ export function wmf2pngBase64Sync(sourcePath) {
   const targetPath = `${tempDir}/${new Date().getTime()}.svg`;
 
   try {
-    libwmf(sourcePath).toPNGSync(targetPath); 
+    libwmf(sourcePath).toPNGSync(targetPath);
 
     const bitmap = fs.readFileSync(targetPath);
     const base64 = Buffer.from(bitmap).toString('base64');
-    const pngBase64  = `data:image/svg;base64,${base64}`;
+    const pngBase64 = `data:image/svg;base64,${base64}`;
     return pngBase64;
-  } catch (error) {
-    throw error; 
   } finally {
     if (isBuffer) {
       fs.rmSync(sourcePath);

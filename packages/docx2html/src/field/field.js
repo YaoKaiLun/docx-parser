@@ -1,11 +1,13 @@
-import Converter from '../base/converter'
+import Converter from '../base/converter';
 
-export default class Field extends Converter{
-	constructor(wordModel, parent){
-		super(...arguments)
-		this.elStart=parent.content;
-	}
-	get wordType(){return 'field'}
+export default class Field extends Converter {
+  constructor(wordModel, parent) {
+    super(...arguments);
+    this.elStart = parent.content;
+  }
+  get wordType() {
+    return 'field';
+  }
 
-	convert(elEnd){}
+  convert(elEnd) {}
 }

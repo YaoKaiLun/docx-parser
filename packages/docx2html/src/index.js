@@ -1,35 +1,35 @@
-import docx4js from "@docx-parser/docx4js"
-import factory from "./factory"
+import docx4js from '@docx-parser/docx4js';
+import factory from './factory';
 
 /**
- * 
- * @param {*} file 
+ *
+ * @param {*} file
  * @param {*} options {
- * 	container: optional, default is document.body, a HTMLElement to contain converted html
- * 	asImageURL: only nodejs required, a function to convert image data to url
+ *   container: optional, default is document.body, a HTMLElement to contain converted html
+ *   asImageURL: only nodejs required, a function to convert image data to url
  * }
- * @returns 
+ * @returns
  */
-export default async function docx2html(file, opt){
+export default async function docx2html(file, opt) {
   const docx = await docx4js.load(file);
-  const html = docx.parse(docx4js.createVisitorFactory(factory, opt))
+  const html = docx.parse(docx4js.createVisitorFactory(factory, opt));
 
   return Object.create({
-    content: html.content, 
-    toString(){
-      return html.toString(...arguments)
+    content: html.content,
+    toString() {
+      return html.toString(...arguments);
     },
-    asZip(){
-      return html.asZip(...arguments)
+    asZip() {
+      return html.asZip(...arguments);
     },
-    download(){
-      return html.download(...arguments)
+    download() {
+      return html.download(...arguments);
     },
-    save(){
-      return html.save(...arguments)
+    save() {
+      return html.save(...arguments);
     },
-    release(){
-      html.release()
-    }
-  })
+    release() {
+      html.release();
+    },
+  });
 }

@@ -8,5 +8,5 @@ docx2html(url).then(html => {
   // console.log('html', html.toString());
   const url = path.join(__dirname, '..', '.result', 'shape-test.html');
   fs.writeFileSync(url, html.toString());
-  console.log('docx2html done!')
+  console.log('docx2html done!');
 });

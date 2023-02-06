@@ -10,21 +10,20 @@ util.inherits(wmf, EventEmitter);
 /**
  * Constructor.
  *
- * @param {String} path - path to wmf source 
+ * @param {String} path - path to wmf source
  */
 
 function wmf(source) {
+  if (!(this instanceof wmf)) {
+    return new wmf(source);
+  }
 
-	if (!(this instanceof wmf)) {
-		return new wmf(source);
-	}
+  EventEmitter.call(this);
 
-	EventEmitter.call(this);
-
-	this.source = source;
-	this._options = {};
-	this._args = [];
-	this._subCommand = 'wmf2gd';
+  this.source = source;
+  this._options = {};
+  this._args = [];
+  this._subCommand = 'wmf2gd';
 }
 
 /**
@@ -36,18 +35,18 @@ function wmf(source) {
 
 var parent = wmf;
 wmf.subClass = function subClass(options) {
-	function wmf(source) {
-		if (!(this instanceof parent)) {
-			return new wmf(source);
-		}
+  function wmf(source) {
+    if (!(this instanceof parent)) {
+      return new wmf(source);
+    }
 
-		parent.call(this, source);
-	}
+    parent.call(this, source);
+  }
 
-	wmf.prototype.__proto__ = parent.prototype;
-	wmf.prototype._options = {};
-	console.log(options);
-	return wmf;
+  wmf.prototype.__proto__ = parent.prototype;
+  wmf.prototype._options = {};
+  console.log(options);
+  return wmf;
 };
 
 require('./command')(wmf.prototype);

@@ -1,15 +1,17 @@
 import Model from '../model';
 
-export default class rangeBase extends Model{
-	iterate(visitor){
+export default class rangeBase extends Model {
+  iterate(visitor) {
 
-	}
-	first(){
+  }
+  first() {
 
-	}
-	last(){
+  }
+  last() {
 
-	}
+  }
 
-	static get type(){return 'range'}
+  static get type() {
+    return 'range';
+  }
 }

@@ -1,9 +1,11 @@
 import Field from './field';
 
-export default class toc extends Field{
-	constructor(instruct){
-		super(...arguments)
-	}
+export default class toc extends Field {
+  constructor(instruct) {
+    super(...arguments);
+  }
 
-	static get type(){return 'field.toc'}
+  static get type() {
+    return 'field.toc';
+  }
 }
